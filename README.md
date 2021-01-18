@@ -26,7 +26,7 @@ jobs:
         steps:
         -   name: calculate lead time for change action step
             id: lead-time
-            uses: SE06-Glasgow-University/lead-time-for-change-action@v1.0
+            uses: SE06-Glasgow-University/lead-time-for-change-action@v1.1
             with:
                 auth-token: ${{ secrets.GITHUB_TOKEN }}
 
