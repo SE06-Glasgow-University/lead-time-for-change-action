@@ -11,5 +11,5 @@ runs:
   using: "node12"
   main: "dist/index.js"
 branding:
-  using: "bar-chart-2"
+  icon: "bar-chart-2"
   color: "gray-dark"
