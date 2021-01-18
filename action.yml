@@ -1,0 +1,15 @@
+name: "Calculate Lead Time For Change"
+description: "Calculates the lead time for change of a repository on a release"
+inputs:
+  auth-token: # id of input
+    description: "The users personal access token"
+    required: true
+outputs:
+  lead-time-for-change: # id of output
+    description: "The lead time for change of the repository"
+runs:
+  using: "node12"
+  main: "dist/index.js"
+branding:
+  using: "bar-chart-2"
+  color: "gray-dark"

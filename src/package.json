@@ -1,0 +1,20 @@
+{
+	"name": "lead-time-for-change",
+	"version": "1.0.0",
+	"description": "this package calculates the lead time for change metric as described in the book 'Accelerate by Forsgren, et al.'",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node index.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@actions/core": "^1.2.6",
+		"@actions/github": "^4.0.0",
+		"@octokit/core": "^3.2.1",
+		"@octokit/request": "^5.4.10",
+		"axios": "^0.21.0",
+		"express": "^4.17.1"
+	}
+}
