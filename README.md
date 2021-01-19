@@ -21,7 +21,7 @@ on:
 
 jobs:
     calculate_lead_time_job:
-        runs-on: ubuntu-latests
+        runs-on: ubuntu-latest
         name: Calculate Lead Time For Change
         steps:
         -   name: calculate lead time for change action step
@@ -31,7 +31,7 @@ jobs:
                 auth-token: ${{ secrets.GITHUB_TOKEN }}
 
         -   name: output lead time for change
-            run: echo "The lead time for change in days is ${{ steps.lead-time.outputs.lead-time-for-change }}
+            run: echo "The lead time for change in days is ${{ steps.lead-time.outputs.lead-time-for-change }}"
 
 ```
 
