@@ -38,7 +38,7 @@ jobs:
 If you want to run the action using your own workflow code, feel free to, but here are the basics you need to get the program working:
 
 ``` yaml
-uses: SE06-Glasgow-University/lead-time-for-change-action@v1.0
+uses: SE06-Glasgow-University/lead-time-for-change-action@v1.1
             with:
                 auth-token: ${{ secrets.GITHUB_TOKEN }}
 
