@@ -8401,7 +8401,7 @@ function wrappy (fn, cb) {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // required packages
-const { request } = __nccwpck_require__(2364); // to handle the http requests to GitHub API
+const {request} = __nccwpck_require__(2364); // to handle the http requests to GitHub API
 const core = __nccwpck_require__(6024); // to get input from workflow/set output to workflow
 const github = __nccwpck_require__(5016); // to get the release object from the payload on trigger
 const axios = __nccwpck_require__(992);
@@ -8415,22 +8415,22 @@ token: the owners personal access token used for authentication of the API reque
 returns sha attribute or sets failure if unsuccessful
 */
 const getSHA = async (owner, repo, tagName, token) => {
-  try {
-    const response = await request(
-      'GET /repos/{owner}/{repo}/git/refs/tags/{tagName}',
-      {
-        headers: {
-          authorization: `token ${token}`,
-        },
-        owner: owner,
-        repo: repo,
-        tagName: tagName,
-      },
-    );
-    return response.data.object.sha;
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+    try {
+        const response = await request(
+            'GET /repos/{owner}/{repo}/git/refs/tags/{tagName}',
+            {
+                headers: {
+                    authorization: `token ${token}`,
+                },
+                owner: owner,
+                repo: repo,
+                tagName: tagName,
+            },
+        );
+        return response.data.object.sha;
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 };
 
 /*
@@ -8442,48 +8442,41 @@ pageNumber: the page number used to traverse through the commits(API caps at 30 
 token: the owners personal access token used for authentication of the API request
 returns the list of commits in release or sets failure if unsuccessful
 */
-const getCommitsList = async (
-  owner,
-  repo,
-  releaseSha,
-  pagenumber,
-  token,
-  sinceDate,
-) => {
-  try {
-    if (sinceDate === 0) {
-      const response = await request(
-        'GET /repos/{owner}/{repo}/commits?sha={releaseSha}&page={pagenumber}',
-        {
-          headers: {
-            authorization: `token ${token}`,
-          },
-          owner: owner,
-          repo: repo,
-          releaseSha: releaseSha,
-          pagenumber: pagenumber,
-        },
-      );
-      return response.data;
-    } else {
-      const response = await request(
-        'GET /repos/{owner}/{repo}/commits?sha={releaseSha}&since={sinceDate}&page={pagenumber}',
-        {
-          headers: {
-            authorization: `token ${token}`,
-          },
-          owner: owner,
-          repo: repo,
-          releaseSha: releaseSha,
-          sinceDate: sinceDate,
-          pagenumber: pagenumber,
-        },
-      );
-      return response.data;
+const getCommitsList = async (owner, repo, releaseSha, pagenumber, token, sinceDate,) => {
+    try {
+        if (sinceDate === 0) {
+            const response = await request(
+                'GET /repos/{owner}/{repo}/commits?sha={releaseSha}&page={pagenumber}',
+                {
+                    headers: {
+                        authorization: `token ${token}`,
+                    },
+                    owner: owner,
+                    repo: repo,
+                    releaseSha: releaseSha,
+                    pagenumber: pagenumber,
+                },
+            );
+            return response.data;
+        } else {
+            const response = await request(
+                'GET /repos/{owner}/{repo}/commits?sha={releaseSha}&since={sinceDate}&page={pagenumber}',
+                {
+                    headers: {
+                        authorization: `token ${token}`,
+                    },
+                    owner: owner,
+                    repo: repo,
+                    releaseSha: releaseSha,
+                    sinceDate: sinceDate,
+                    pagenumber: pagenumber,
+                },
+            );
+            return response.data;
+        }
+    } catch (error) {
+        core.setFailed(error.message);
     }
-  } catch (error) {
-    core.setFailed(error.message);
-  }
 };
 
 /*
@@ -8494,18 +8487,18 @@ token: the owners personal access token used for authentication of the API reque
 returns the integer number of releases in the repo
 */
 const getNumReleases = async (owner, repo, token) => {
-  try {
-    const response = await request('GET /repos/{owner}/{repo}/releases', {
-      headers: {
-        authorization: `token ${token}`,
-      },
-      owner: owner,
-      repo: repo,
-    });
-    return response.data.length;
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+    try {
+        const response = await request('GET /repos/{owner}/{repo}/releases', {
+            headers: {
+                authorization: `token ${token}`,
+            },
+            owner: owner,
+            repo: repo,
+        });
+        return response.data.length;
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 };
 
 /*
@@ -8521,55 +8514,49 @@ returns data object, which contains the number of commits
  since release and the data of the release at n or sets failure if unsuccessful
 */
 const getReleaseData = async (owner, repo, releaseSha, token, n) => {
-  try {
-    let data = {
-      numCommits: 0,
-      firstDate: '',
-    };
-    const response = await request('GET /repos/{owner}/{repo}/releases', {
-      headers: {
-        authorization: `token ${token}`,
-      },
-      owner: owner,
-      repo: repo,
-    });
-    let previousRelease = response.data[n]; //get release at index n of list
-    data.firstDate = previousRelease.created_at;
+    try {
+        let data = {
+            numCommits: 0,
+            firstDate: '',
+        };
+        const response = await request('GET /repos/{owner}/{repo}/releases', {
+            headers: {
+                authorization: `token ${token}`,
+            },
+            owner: owner,
+            repo: repo,
+        });
+        let previousRelease = response.data[n]; //get release at index n of list
+        data.firstDate = previousRelease.created_at;
 
-    data.numCommits = await getNumCommits(
-      owner,
-      repo,
-      releaseSha,
-      token,
-      data.firstDate,
-    );
+        data.numCommits = await getNumCommits(owner, repo, releaseSha, token, data.firstDate);
 
-    return data;
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+        return data;
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 };
 
 const getRelease = async (owner, repo, token, n) => {
-  try {
-    const response = await request('GET /repos/{owner}/{repo}/releases', {
-      headers: {
-        authorization: `token ${token}`,
-      },
-      owner: owner,
-      repo: repo,
-    });
+    try {
+        const response = await request('GET /repos/{owner}/{repo}/releases', {
+            headers: {
+                authorization: `token ${token}`,
+            },
+            owner: owner,
+            repo: repo,
+        });
 
-    let res = response.data[n];
-    return {
-      id: res.id,
-      createdAt: new Date(res.created_at),
-      tagName: res.tag_name,
-      body: res.body,
-    }; //get release at index n of list;
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+        let res = response.data[n];
+        return {
+            id: res.id,
+            createdAt: new Date(res.created_at),
+            tagName: res.tag_name,
+            body: res.body
+        }; //get release at index n of list;
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 };
 
 /*
@@ -8584,40 +8571,33 @@ returns data object, which contains the number of commits
  since release and the data of the release at n or sets failure if unsuccessful
 */
 const getCommitData = async (owner, repo, releaseSha, token, sinceDate) => {
-  try {
-    let pagenumber = 1;
-    let foundLast = false;
-    let lastItem;
-    let commitList;
+    try {
+        let pagenumber = 1;
+        let foundLast = false;
+        let lastItem;
+        let commitList;
 
-    let data = {
-      numCommits: 0,
-      firstDate: '',
-    };
+        let data = {
+            numCommits: 0,
+            firstDate: '',
+        };
 
-    while (foundLast === false) {
-      commitList = await getCommitsList(
-        owner,
-        repo,
-        releaseSha,
-        pagenumber,
-        token,
-        sinceDate,
-      );
-      // check if list has elements
-      if (!(commitList === undefined || commitList.length === 0)) {
-        lastItem = commitList[commitList.length - 1];
-        data.numCommits += commitList.length;
-        pagenumber += 1;
-      } else {
-        foundLast = true;
-      }
+        while (foundLast === false) {
+            commitList = await getCommitsList(owner, repo, releaseSha, pagenumber, token, sinceDate);
+            // check if list has elements
+            if (!(commitList === undefined || commitList.length === 0)) {
+                lastItem = commitList[commitList.length - 1];
+                data.numCommits += commitList.length;
+                pagenumber += 1;
+            } else {
+                foundLast = true;
+            }
+        }
+        data.firstDate = lastItem.commit.author.date;
+        return data;
+    } catch (error) {
+        core.setFailed(error.message);
     }
-    data.firstDate = lastItem.commit.author.date;
-    return data;
-  } catch (error) {
-    core.setFailed(error.message);
-  }
 };
 
 /*
@@ -8629,33 +8609,26 @@ token: the owners personal access token used for authentication of the API reque
 returns the number of commits
 */
 const getNumCommits = async (owner, repo, releaseSha, token, sinceDate) => {
-  try {
-    let numCommits = 0;
-    let pagenumber = 1;
-    let foundLast = false;
-    let commitList;
+    try {
+        let numCommits = 0;
+        let pagenumber = 1;
+        let foundLast = false;
+        let commitList;
 
-    while (foundLast === false) {
-      commitList = await getCommitsList(
-        owner,
-        repo,
-        releaseSha,
-        pagenumber,
-        token,
-        sinceDate,
-      );
-      // check if list has elements
-      if (!(commitList === undefined || commitList.length === 0)) {
-        numCommits += commitList.length;
-        pagenumber += 1;
-      } else {
-        foundLast = true;
-      }
+        while (foundLast === false) {
+            commitList = await getCommitsList(owner, repo, releaseSha, pagenumber, token, sinceDate);
+            // check if list has elements
+            if (!(commitList === undefined || commitList.length === 0)) {
+                numCommits += commitList.length;
+                pagenumber += 1;
+            } else {
+                foundLast = true;
+            }
+        }
+        return numCommits;
+    } catch (error) {
+        core.setFailed(error.message);
     }
-    return numCommits;
-  } catch (error) {
-    core.setFailed(error.message);
-  }
 };
 
 /*
@@ -8667,19 +8640,19 @@ numCommits: the number of commits made between firstTime and createdAt
 returns the lead time for change or sets failure if unsuccessful
 */
 const getLeadTime = (createdAt, firstTime, numCommits) => {
-  if (numCommits === 0) {
-    throw { code: 1, message: 'No commits since last release' };
-  } else if (numCommits < 0) {
-    throw { code: 1, message: 'Number of commits is negative' };
-  }
-  try {
-    let firstTimeObj = new Date(firstTime);
-    let timeDiff = Math.abs(createdAt.getTime() - firstTimeObj.getTime());
-    let numDays = (timeDiff / (1000 * 60 * 60 * 24)).toFixed(2);
-    return (numDays / numCommits).toFixed(2); // lead time for change
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+    if (numCommits === 0) {
+        throw {code: 1, message: 'No commits since last release'};
+    } else if (numCommits < 0) {
+        throw {code: 1, message: 'Number of commits is negative'};
+    }
+    try {
+        let firstTimeObj = new Date(firstTime);
+        let timeDiff = Math.abs(createdAt.getTime() - firstTimeObj.getTime());
+        let numDays = (timeDiff / (1000 * 60 * 60 * 24)).toFixed(2);
+        return (numDays / numCommits).toFixed(2); // lead time for change
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 };
 
 /*
@@ -8692,21 +8665,21 @@ body: the new body to update the release with (includes the old description but 
 returns true if successful, false otherwise
 */
 const updateReleaseBody = async (owner, repo, releaseID, token, body) => {
-  try {
-    await request('PATCH /repos/{owner}/{repo}/releases/{releaseID}', {
-      headers: {
-        authorization: `token ${token}`,
-      },
-      owner: owner,
-      repo: repo,
-      releaseID: releaseID,
-      body: body,
-    });
-    return true;
-  } catch (error) {
-    core.setFailed(error.message);
-    return false;
-  }
+    try {
+        await request('PATCH /repos/{owner}/{repo}/releases/{releaseID}', {
+            headers: {
+                authorization: `token ${token}`,
+            },
+            owner: owner,
+            repo: repo,
+            releaseID: releaseID,
+            body: body,
+        });
+        return true;
+    } catch (error) {
+        core.setFailed(error.message);
+        return false;
+    }
 };
 
 /*
@@ -8718,32 +8691,21 @@ createdAt: the date and time that the release was made
 leadTimeForChange: The calculated lead time for change
 returns true if successful, false otherwise
 */
-const sendDataToWebsite = async (
-  ownerName,
-  repo,
-  webToken,
-  tagName,
-  createdAt,
-  leadTimeForChange,
-) => {
-  try {
-    const response = await axios.post(
-      'https://europe-west3-se06-website.cloudfunctions.net/api/repo/access',
-      {
-        ownerName: ownerName,
-        token: webToken,
-        repoName: repo,
-        tag: tagName,
-        created_at: createdAt,
-        lead_time: leadTimeForChange,
-      },
-    );
-    console.log(response);
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
+const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, leadTimeForChange,) => {
+    try {
+        console.log(ownerName);
+        await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', {
+                ownerName: ownerName,
+                token: webToken,
+                repoName: repo,
+                tag: tagName,
+                created_at: createdAt,
+                lead_time: leadTimeForChange
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
 };
 
 /*
@@ -8753,136 +8715,85 @@ then calls each function to get the lead time for change
 sets the output as either the lead time for change on success
 or sets failure if otherwise
 */
-const run = async (
-  i,
-  ownerName,
-  repo,
-  id,
-  tagName,
-  createdAt,
-  body,
-  token,
-  webToken,
-  numReleases,
-) => {
-  try {
-    let releaseSha = await getSHA(ownerName, repo, tagName, token);
+const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webToken, numReleases,) => {
+    try {
+        let releaseSha = await getSHA(ownerName, repo, tagName, token);
 
-    let data;
-    if (i + 1 >= numReleases) {
-      data = await getCommitData(ownerName, repo, releaseSha, token, 0);
-    } else {
-      data = await getReleaseData(ownerName, repo, releaseSha, token, i + 1);
+        let data;
+        if (i + 1 >= numReleases) {
+            data = await getCommitData(ownerName, repo, releaseSha, token, 0);
+        } else {
+            data = await getReleaseData(ownerName, repo, releaseSha, token, i + 1);
+        }
+
+        let leadTimeForChange = await getLeadTime(createdAt, data.firstDate, data.numCommits,);
+
+        let newBodyDescription = `${body} \n Lead Time For Change In Days ${leadTimeForChange}`;
+        let successfulUpdate = await updateReleaseBody(ownerName, repo, id, token, newBodyDescription);
+
+        if (successfulUpdate) {
+            console.log(`${tagName} release (ID = ${id}) description updated successfully`);
+        } else {
+            console.log(`${tagName} release (ID = ${id}) description could not be updated`);
+        }
+
+        if (webToken) {
+            const successfulSendData = await sendDataToWebsite(ownerName, repo, webToken, tagName, createdAt, leadTimeForChange);
+            if (successfulSendData === true) {
+                console.log('results posted to website successfully');
+            } else {
+                console.log('results posted to website unsuccessfully');
+            }
+        } else {
+            core.info('web token not supplied: skipping step');
+        }
+
+        console.log(`${tagName} Lead Time For Change in Days: ${leadTimeForChange}`);
+
+        if (i === 0) {
+            core.setOutput('lead-time-for-change', leadTimeForChange);
+        }
+
+    } catch (error) {
+        core.setFailed(error.message);
     }
-
-    let leadTimeForChange = await getLeadTime(
-      createdAt,
-      data.firstDate,
-      data.numCommits,
-    );
-
-    let newBodyDescription = `${body} \n Lead Time For Change In Days ${leadTimeForChange}`;
-    let successfulUpdate = await updateReleaseBody(
-      ownerName,
-      repo,
-      id,
-      token,
-      newBodyDescription,
-    );
-
-    if (successfulUpdate) {
-      console.log(
-        `${tagName} release (ID = ${id}) description updated successfully`,
-      );
-    } else {
-      console.log(
-        `${tagName} release (ID = ${id}) description could not be updated`,
-      );
-    }
-
-    if (webToken) {
-      const successfulSendData = await sendDataToWebsite(
-        ownerName,
-        repo,
-        webToken,
-        tagName,
-        createdAt,
-        leadTimeForChange,
-      );
-      if (successfulSendData === true) {
-        console.log('results posted to website successfully');
-      } else {
-        console.log('results posted to website unsuccessfully');
-      }
-    } else {
-      core.info('web token not supplied: skipping step');
-    }
-
-    console.log(
-      `${tagName} Lead Time For Change in Days: ${leadTimeForChange}`,
-    );
-
-    if (i === 0) {
-      core.setOutput('lead-time-for-change', leadTimeForChange);
-    }
-  } catch (error) {
-    core.setFailed(error.message);
-  }
 };
 
 const main = async () => {
-  try {
-    // extract data from release payload that triggered action
-    const { repository } = github.context.payload;
-    const ownerName = repository.owner.login;
-    const repo = repository.name;
+    try {
+        // extract data from release payload that triggered action
+        const {repository} = github.context.payload;
+        const ownerName = repository.owner.login;
+        const repo = repository.name;
 
-    const token = core.getInput('auth-token'); // required by user to authenticate into GitHub API
-    const calculatePreviousReleases = core.getInput(
-      'calculate-previous-releases',
-    );
-    const webToken = core.getInput('web-token');
+        const token = core.getInput('auth-token'); // required by user to authenticate into GitHub API
+        const calculatePreviousReleases = core.getInput(
+            'calculate-previous-releases',
+        );
+        const webToken = core.getInput('web-token');
 
-    let n;
-    if (calculatePreviousReleases === 'true') {
-      n = Math.abs(parseInt(core.getInput('number-of-releases'), 10)); //get number of releases as integer
-    } else {
-      n = 1;
+        let n;
+        if (calculatePreviousReleases === 'true') {
+            n = Math.abs(parseInt(core.getInput('number-of-releases'), 10)); //get number of releases as integer
+        } else {
+            n = 1;
+        }
+
+        const numReleases = await getNumReleases(ownerName, repo, token);
+
+        if (numReleases < n) {
+            console.log(`cannot calculate lead time for change of ${n} releases as there is only ${numReleases} releases in repo`);
+            console.log(`calculating for ${numReleases} releases instead`);
+            n = numReleases;
+        }
+
+        for (let i = 0; i < n; i++) {
+            let {id, tagName, createdAt, body} = await getRelease(ownerName, repo, token, i,);
+            await run(i, ownerName, repo, id, tagName, createdAt, body, token, webToken, numReleases,);
+        }
+    } catch (e) {
+        core.setFailed(e.message);
     }
-
-    const numReleases = await getNumReleases(ownerName, repo, token);
-
-    if (numReleases < n) {
-      console.log(
-        `cannot calculate lead time for change of ${n} releases as there is only ${numReleases} releases in repo`,
-      );
-      console.log(`calculating for ${numReleases} releases instead`);
-      n = numReleases;
-    }
-
-    for (let i = 0; i < n; i++) {
-      let { id, tagName, createdAt, body } = await getRelease(
-        ownerName,
-        repo,
-        token,
-        i,
-      );
-      await run(
-        i,
-        ownerName,
-        repo,
-        id,
-        tagName,
-        createdAt,
-        body,
-        token,
-        webToken,
-        numReleases,
-      );
-    }
-  } catch (e) {
-    core.setFailed(e.message);
-  }
 };
 
 main();
