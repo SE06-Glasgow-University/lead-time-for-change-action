@@ -25,7 +25,7 @@ jobs:
         steps:
         -   name: calculate lead time for change action step
             id: lead-time
-            uses: actions/lead-time-for-change-action@v1.0
+            uses: actions/lead-time-for-change-action@v1.2
             with:
                 auth-token: ${{ secrets.GITHUB_TOKEN }}
                 web-token: ${{ secrets.LEAD_TIME_AUTH_TOKEN }}
