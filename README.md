@@ -33,6 +33,6 @@ jobs:
                 number-of-releases: 4
                 
         -   name: output lead time for change
-            run: echo "The lead time for change in days is ${{ steps.lead-time.outputs.lead-time-for-change }}
+            run: echo "The lead time for change in days is ${{ steps.lead-time.outputs.lead-time-for-change }}"
 
 ```
