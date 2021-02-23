@@ -291,16 +291,15 @@ returns true if successful, false otherwise
 */
 const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, leadTimeForChange,) => {
     try {
-        await axios.post(
-            'https://europe-west3-se06-website.cloudfunctions.net/api/repo/access',
-            {
+        console.log(ownerName);
+        await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', {
                 ownerName: ownerName,
                 token: webToken,
                 repoName: repo,
                 tag: tagName,
                 created_at: createdAt,
-                lead_time: leadTimeForChange,
-            });
+                lead_time: leadTimeForChange
+        });
         return true;
     } catch (error) {
         return false;
@@ -328,7 +327,7 @@ const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webT
         let leadTimeForChange = await getLeadTime(createdAt, data.firstDate, data.numCommits,);
 
         let newBodyDescription = `${body} \n Lead Time For Change In Days ${leadTimeForChange}`;
-        let successfulUpdate = await updateReleaseBody(ownerName, repo, id, token, newBodyDescription,);
+        let successfulUpdate = await updateReleaseBody(ownerName, repo, id, token, newBodyDescription);
 
         if (successfulUpdate) {
             console.log(`${tagName} release (ID = ${id}) description updated successfully`);
@@ -337,6 +336,7 @@ const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webT
         }
 
         if (webToken) {
+            console.log(`start web owner ${ownerName}`);
             const successfulSendData = await sendDataToWebsite(ownerName, repo, webToken, tagName, createdAt, leadTimeForChange);
             if (successfulSendData === true) {
                 console.log('results posted to website successfully');
@@ -363,6 +363,7 @@ const main = async () => {
         // extract data from release payload that triggered action
         const {repository} = github.context.payload;
         const ownerName = repository.owner.login;
+        console.log(`start owner ${ownerName}`);
         const repo = repository.name;
 
         const token = core.getInput('auth-token'); // required by user to authenticate into GitHub API
