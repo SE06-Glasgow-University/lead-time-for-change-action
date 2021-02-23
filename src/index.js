@@ -306,9 +306,7 @@ const sendDataToWebsite = async (repo, webToken, tagName, createdAt, leadTimeFor
 
 	// TODO: Update the url
 	needle('post', 'https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', data, {json: true})
-		.then(function (resp) {
-			console.log(resp)
-			// posted successfully
+		.then(function () {
 			return true
 		})
 		.catch(function (err) {
