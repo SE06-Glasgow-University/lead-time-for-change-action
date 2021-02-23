@@ -303,10 +303,13 @@ const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, 
 		created_at: createdAt,
 		lead_time: leadTimeForChange
 	};
+	
+	console.log(`OwnerName = ${ownerName}`);
 
 	// TODO: Update the url
 	needle('post', 'https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', data, {json: true})
-		.then(function () {
+		.then(function (response) {
+			console.log(repsonse);
 			return true
 		})
 		.catch(function (err) {
