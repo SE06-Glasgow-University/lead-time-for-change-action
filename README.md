@@ -20,7 +20,7 @@ on:
 
 jobs:
     calculate_lead_time_job:
-        runs-on: ubuntu-latests
+        runs-on: ubuntu-latest
         name: Calculate Lead Time For Change
         steps:
         -   name: calculate lead time for change action step
