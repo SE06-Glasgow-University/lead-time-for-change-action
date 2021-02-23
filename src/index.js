@@ -336,7 +336,6 @@ const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webT
         }
 
         if (webToken) {
-            console.log(`start web owner ${ownerName}`);
             const successfulSendData = await sendDataToWebsite(ownerName, repo, webToken, tagName, createdAt, leadTimeForChange);
             if (successfulSendData === true) {
                 console.log('results posted to website successfully');
@@ -363,7 +362,6 @@ const main = async () => {
         // extract data from release payload that triggered action
         const {repository} = github.context.payload;
         const ownerName = repository.owner.login;
-        console.log(`start owner ${ownerName}`);
         const repo = repository.name;
 
         const token = core.getInput('auth-token'); // required by user to authenticate into GitHub API
