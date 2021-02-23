@@ -1,13 +1,12 @@
-
-
-# Lead Time For Change Action
+# Calculate lead time for change
 Calculates the lead time for change of a repository on a release
-
 ## Inputs
-auth-token (required): the personal access token of the user
-
+### auth-token (required): the personal access token of the user
+### web-token (optional): the token provided by the complimentary website for authenticating post request to website
+### calculate-previous-releases(optional): Default as false, if set to true the action will also calculate the lead time for the previous 5 releases unless number-of-releases is specified.
+### number-of-releases(optional): Default is 5. Takes an integer n and if calculate-previous-release is set to true then the action will calculate the previous n releases.
 ## Outputs
-lead-time-for-change: The lead time for change from previous release to current release
+### lead-time-for-change: The lead time for change from previous release to current release
 
 ## Runs using: node12
 ## main: index.js
@@ -21,33 +20,19 @@ on:
 
 jobs:
     calculate_lead_time_job:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latests
         name: Calculate Lead Time For Change
         steps:
         -   name: calculate lead time for change action step
             id: lead-time
-            uses: SE06-Glasgow-University/lead-time-for-change-action@v1.1
+            uses: actions/lead-time-for-change-action@v1.0
             with:
                 auth-token: ${{ secrets.GITHUB_TOKEN }}
-
+                web-token: ${{ secrets.LEAD_TIME_AUTH_TOKEN }}
+                calculate-previous-releases: true
+                number-of-releases: 4
+                
         -   name: output lead time for change
-            run: echo "The lead time for change in days is ${{ steps.lead-time.outputs.lead-time-for-change }}"
+            run: echo "The lead time for change in days is ${{ steps.lead-time.outputs.lead-time-for-change }}
 
 ```
-
-If you want to run the action using your own workflow code, feel free to, but here are the basics you need to get the program working:
-
-``` yaml
-uses: SE06-Glasgow-University/lead-time-for-change-action@v1.1
-            with:
-                auth-token: ${{ secrets.GITHUB_TOKEN }}
-
-```
-
-The above code tells your workflow to use the current newest version of the action (v1.0) and sets the required auth-token input to your own personal access token which we require to make requests to the GitHub API and to allow our action to update the releases description with the lead time for change that was calculated when the action was run.
-
-
-## Owners
-
-This project was created by team SE06, a group of 3rd year software engineering students at the University of Glasgow
-If you need to get into contact with us please use the email we have setup for the project `se06.glasgow@gmail.com`
