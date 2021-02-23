@@ -4,6 +4,17 @@ inputs:
   auth-token: # id of input
     description: "The users personal access token"
     required: true
+  calculate-previous-releases:
+    description: "If set to true, the action will also calculate the lead time for change for previous releases"
+    required: false
+    default: "true"
+  number-of-releases:
+    description: "the number of previous releases to calculate lead time for change for (default is 5)"
+    required: false
+    default: "5"
+  web-token:
+    description: "The repository token provided by (TODO:REPLACE WITH WEBSITE URL)"
+    required: false
 outputs:
   lead-time-for-change: # id of output
     description: "The lead time for change of the repository"
