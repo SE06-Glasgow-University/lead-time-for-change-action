@@ -294,7 +294,7 @@ createdAt: the date and time that the release was made
 leadTimeForChange: The calculated lead time for change
 returns true if successful, false otherwise
 */
-const sendDataToWebsite = async (repo, webToken, tagName, createdAt, leadTimeForChange) => {
+const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, leadTimeForChange) => {
 	let data = {
 		ownerName: ownerName,
 		token: webToken,
@@ -345,7 +345,7 @@ const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webT
 		}
 
 		if (webToken) {
-			const successfulSendData = await sendDataToWebsite(repo, webToken, tagName, createdAt, leadTimeForChange)
+			const successfulSendData = await sendDataToWebsite(ownerName, repo, webToken, tagName, createdAt, leadTimeForChange)
 			if (successfulSendData === true) {
 				console.log("results posted to website successfully")
 			} else {
