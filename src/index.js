@@ -291,7 +291,6 @@ returns true if successful, false otherwise
 */
 const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, leadTimeForChange,) => {
     try {
-        console.log(ownerName);
         await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', {
                 ownerName: ownerName,
                 token: webToken,
