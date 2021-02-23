@@ -375,16 +375,17 @@ returns true if successful, false otherwise
 */
 const sendDataToWebsite = async (repo, webToken, tagName, createdAt, leadTimeForChange) => {
 	let data = {
+		ownerName: ownerName,
+		token: webToken,
 		repoName: repo,
-		tagName: tagName,
-		createdAt: createdAt,
-		leadTimeForChange: leadTimeForChange
-	}
+		tag: tagName,
+		created_at: createdAt,
+		lead_time: leadTimeForChange
+	};
+
 	// TODO: Update the url
-	needle('post', 'CHANGEME', data, {json: true, headers: {Authorization: `Bearer ${webToken}`}})
-		.then(function (resp) {
-			console.log(resp)
-			// posted successfully
+	needle('post', 'https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', data, {json: true})
+		.then(function () {
 			return true
 		})
 		.catch(function (err) {
