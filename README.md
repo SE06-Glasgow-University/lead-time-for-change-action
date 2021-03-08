@@ -1,5 +1,5 @@
 # Calculate lead time for change
-Calculates the lead time for change of a repository on a release
+Calculates the lead time for change of a repository on a release. Lead time can be viewed graphically at https://se06-website.web.app/
 ## Inputs
 ### auth-token (required): the personal access token of the user
 ### web-token (optional): the token provided by the complimentary website for authenticating post request to website
