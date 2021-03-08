@@ -291,7 +291,7 @@ returns true if successful, false otherwise
 */
 const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, leadTimeForChange,) => {
     try {
-        await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', {
+        await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api-endpoints/graph/add-data', {
                 ownerName: ownerName,
                 token: webToken,
                 repoName: repo,
@@ -323,9 +323,9 @@ const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webT
             data = await getReleaseData(ownerName, repo, releaseSha, token, i + 1);
         }
 
-        let leadTimeForChange = await getLeadTime(createdAt, data.firstDate, data.numCommits,);
+        let badge = `[![Lead Time For Change](https://img.shields.io/static/v1?label=lead%20time%20for%20change&message=${leadTimeForChange}&color=green)](https://shields.io/)`
 
-        let newBodyDescription = `${body} \n Lead Time For Change In Days ${leadTimeForChange}`;
+        let newBodyDescription = `${badge} \n ${body}`;
         let successfulUpdate = await updateReleaseBody(ownerName, repo, id, token, newBodyDescription);
 
         if (successfulUpdate) {
