@@ -13,7 +13,7 @@ inputs:
     required: false
     default: "5"
   web-token:
-    description: "The repository token provided by (TODO:REPLACE WITH WEBSITE URL)"
+    description: "The repository token provided by https://se06-website.web.app/"
     required: false
 outputs:
   lead-time-for-change: # id of output
