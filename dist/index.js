@@ -1329,7 +1329,7 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-const VERSION = "3.2.5";
+const VERSION = "3.2.1";
 
 class Octokit {
   constructor(options = {}) {
@@ -1833,7 +1833,7 @@ function withDefaults(oldDefaults, newDefaults) {
   });
 }
 
-const VERSION = "6.0.11";
+const VERSION = "6.0.9";
 
 const userAgent = `octokit-endpoint.js/${VERSION} ${universalUserAgent.getUserAgent()}`; // DEFAULTS has all properties set that EndpointOptions has, except url.
 // So we use RequestParameters and add method as additional required property.
@@ -1870,7 +1870,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var request = __nccwpck_require__(2364);
 var universalUserAgent = __nccwpck_require__(7163);
 
-const VERSION = "4.6.0";
+const VERSION = "4.5.7";
 
 class GraphqlError extends Error {
   constructor(request, response) {
@@ -1983,7 +1983,7 @@ exports.withCustomRequest = withCustomRequest;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 
-const VERSION = "2.10.0";
+const VERSION = "2.6.0";
 
 /**
  * Some “list” response that can be paginated have a different response structure
@@ -2141,24 +2141,13 @@ const Endpoints = {
     deleteSelfHostedRunnerFromRepo: ["DELETE /repos/{owner}/{repo}/actions/runners/{runner_id}"],
     deleteWorkflowRun: ["DELETE /repos/{owner}/{repo}/actions/runs/{run_id}"],
     deleteWorkflowRunLogs: ["DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs"],
-    disableSelectedRepositoryGithubActionsOrganization: ["DELETE /orgs/{org}/actions/permissions/repositories/{repository_id}"],
-    disableWorkflow: ["PUT /repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable"],
     downloadArtifact: ["GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}"],
     downloadJobLogsForWorkflowRun: ["GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs"],
     downloadWorkflowRunLogs: ["GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs"],
-    enableSelectedRepositoryGithubActionsOrganization: ["PUT /orgs/{org}/actions/permissions/repositories/{repository_id}"],
-    enableWorkflow: ["PUT /repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable"],
-    getAllowedActionsOrganization: ["GET /orgs/{org}/actions/permissions/selected-actions"],
-    getAllowedActionsRepository: ["GET /repos/{owner}/{repo}/actions/permissions/selected-actions"],
     getArtifact: ["GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}"],
-    getGithubActionsPermissionsOrganization: ["GET /orgs/{org}/actions/permissions"],
-    getGithubActionsPermissionsRepository: ["GET /repos/{owner}/{repo}/actions/permissions"],
     getJobForWorkflowRun: ["GET /repos/{owner}/{repo}/actions/jobs/{job_id}"],
     getOrgPublicKey: ["GET /orgs/{org}/actions/secrets/public-key"],
     getOrgSecret: ["GET /orgs/{org}/actions/secrets/{secret_name}"],
-    getRepoPermissions: ["GET /repos/{owner}/{repo}/actions/permissions", {}, {
-      renamed: ["actions", "getGithubActionsPermissionsRepository"]
-    }],
     getRepoPublicKey: ["GET /repos/{owner}/{repo}/actions/secrets/public-key"],
     getRepoSecret: ["GET /repos/{owner}/{repo}/actions/secrets/{secret_name}"],
     getSelfHostedRunnerForOrg: ["GET /orgs/{org}/actions/runners/{runner_id}"],
@@ -2175,7 +2164,6 @@ const Endpoints = {
     listRunnerApplicationsForOrg: ["GET /orgs/{org}/actions/runners/downloads"],
     listRunnerApplicationsForRepo: ["GET /repos/{owner}/{repo}/actions/runners/downloads"],
     listSelectedReposForOrgSecret: ["GET /orgs/{org}/actions/secrets/{secret_name}/repositories"],
-    listSelectedRepositoriesEnabledGithubActionsOrganization: ["GET /orgs/{org}/actions/permissions/repositories"],
     listSelfHostedRunnersForOrg: ["GET /orgs/{org}/actions/runners"],
     listSelfHostedRunnersForRepo: ["GET /repos/{owner}/{repo}/actions/runners"],
     listWorkflowRunArtifacts: ["GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts"],
@@ -2183,12 +2171,7 @@ const Endpoints = {
     listWorkflowRunsForRepo: ["GET /repos/{owner}/{repo}/actions/runs"],
     reRunWorkflow: ["POST /repos/{owner}/{repo}/actions/runs/{run_id}/rerun"],
     removeSelectedRepoFromOrgSecret: ["DELETE /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}"],
-    setAllowedActionsOrganization: ["PUT /orgs/{org}/actions/permissions/selected-actions"],
-    setAllowedActionsRepository: ["PUT /repos/{owner}/{repo}/actions/permissions/selected-actions"],
-    setGithubActionsPermissionsOrganization: ["PUT /orgs/{org}/actions/permissions"],
-    setGithubActionsPermissionsRepository: ["PUT /repos/{owner}/{repo}/actions/permissions"],
-    setSelectedReposForOrgSecret: ["PUT /orgs/{org}/actions/secrets/{secret_name}/repositories"],
-    setSelectedRepositoriesEnabledGithubActionsOrganization: ["PUT /orgs/{org}/actions/permissions/repositories"]
+    setSelectedReposForOrgSecret: ["PUT /orgs/{org}/actions/secrets/{secret_name}/repositories"]
   },
   activity: {
     checkRepoIsStarredByAuthenticatedUser: ["GET /user/starred/{owner}/{repo}"],
@@ -2244,7 +2227,6 @@ const Endpoints = {
     getSubscriptionPlanForAccount: ["GET /marketplace_listing/accounts/{account_id}"],
     getSubscriptionPlanForAccountStubbed: ["GET /marketplace_listing/stubbed/accounts/{account_id}"],
     getUserInstallation: ["GET /users/{username}/installation"],
-    getWebhookConfigForApp: ["GET /app/hook/config"],
     listAccountsForPlan: ["GET /marketplace_listing/plans/{plan_id}/accounts"],
     listAccountsForPlanStubbed: ["GET /marketplace_listing/stubbed/plans/{plan_id}/accounts"],
     listInstallationReposForAuthenticatedUser: ["GET /user/installations/{installation_id}/repositories"],
@@ -2258,10 +2240,8 @@ const Endpoints = {
     removeRepoFromInstallation: ["DELETE /user/installations/{installation_id}/repositories/{repository_id}"],
     resetToken: ["PATCH /applications/{client_id}/token"],
     revokeInstallationAccessToken: ["DELETE /installation/token"],
-    scopeToken: ["POST /applications/{client_id}/token/scoped"],
     suspendInstallation: ["PUT /app/installations/{installation_id}/suspended"],
-    unsuspendInstallation: ["DELETE /app/installations/{installation_id}/suspended"],
-    updateWebhookConfigForApp: ["PATCH /app/hook/config"]
+    unsuspendInstallation: ["DELETE /app/installations/{installation_id}/suspended"]
   },
   billing: {
     getGithubActionsBillingOrg: ["GET /orgs/{org}/settings/billing/actions"],
@@ -2272,29 +2252,69 @@ const Endpoints = {
     getSharedStorageBillingUser: ["GET /users/{username}/settings/billing/shared-storage"]
   },
   checks: {
-    create: ["POST /repos/{owner}/{repo}/check-runs"],
-    createSuite: ["POST /repos/{owner}/{repo}/check-suites"],
-    get: ["GET /repos/{owner}/{repo}/check-runs/{check_run_id}"],
-    getSuite: ["GET /repos/{owner}/{repo}/check-suites/{check_suite_id}"],
-    listAnnotations: ["GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations"],
-    listForRef: ["GET /repos/{owner}/{repo}/commits/{ref}/check-runs"],
-    listForSuite: ["GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs"],
-    listSuitesForRef: ["GET /repos/{owner}/{repo}/commits/{ref}/check-suites"],
-    rerequestSuite: ["POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest"],
-    setSuitesPreferences: ["PATCH /repos/{owner}/{repo}/check-suites/preferences"],
-    update: ["PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}"]
+    create: ["POST /repos/{owner}/{repo}/check-runs", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    createSuite: ["POST /repos/{owner}/{repo}/check-suites", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    get: ["GET /repos/{owner}/{repo}/check-runs/{check_run_id}", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    getSuite: ["GET /repos/{owner}/{repo}/check-suites/{check_suite_id}", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    listAnnotations: ["GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    listForRef: ["GET /repos/{owner}/{repo}/commits/{ref}/check-runs", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    listForSuite: ["GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    listSuitesForRef: ["GET /repos/{owner}/{repo}/commits/{ref}/check-suites", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    rerequestSuite: ["POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    setSuitesPreferences: ["PATCH /repos/{owner}/{repo}/check-suites/preferences", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }],
+    update: ["PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}", {
+      mediaType: {
+        previews: ["antiope"]
+      }
+    }]
   },
   codeScanning: {
-    deleteAnalysis: ["DELETE /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}{?confirm_delete}"],
     getAlert: ["GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}", {}, {
       renamedParameters: {
         alert_id: "alert_number"
       }
     }],
-    getAnalysis: ["GET /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}"],
-    getSarif: ["GET /repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}"],
     listAlertsForRepo: ["GET /repos/{owner}/{repo}/code-scanning/alerts"],
-    listAlertsInstances: ["GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances"],
     listRecentAnalyses: ["GET /repos/{owner}/{repo}/code-scanning/analyses"],
     updateAlert: ["PATCH /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}"],
     uploadSarif: ["POST /repos/{owner}/{repo}/code-scanning/sarifs"]
@@ -2318,16 +2338,6 @@ const Endpoints = {
   },
   emojis: {
     get: ["GET /emojis"]
-  },
-  enterpriseAdmin: {
-    disableSelectedOrganizationGithubActionsEnterprise: ["DELETE /enterprises/{enterprise}/actions/permissions/organizations/{org_id}"],
-    enableSelectedOrganizationGithubActionsEnterprise: ["PUT /enterprises/{enterprise}/actions/permissions/organizations/{org_id}"],
-    getAllowedActionsEnterprise: ["GET /enterprises/{enterprise}/actions/permissions/selected-actions"],
-    getGithubActionsPermissionsEnterprise: ["GET /enterprises/{enterprise}/actions/permissions"],
-    listSelectedOrganizationsEnabledGithubActionsEnterprise: ["GET /enterprises/{enterprise}/actions/permissions/organizations"],
-    setAllowedActionsEnterprise: ["PUT /enterprises/{enterprise}/actions/permissions/selected-actions"],
-    setGithubActionsPermissionsEnterprise: ["PUT /enterprises/{enterprise}/actions/permissions"],
-    setSelectedOrganizationsEnabledGithubActionsEnterprise: ["PUT /enterprises/{enterprise}/actions/permissions/organizations"]
   },
   gists: {
     checkIsStarred: ["GET /gists/{gist_id}/star"],
@@ -2371,23 +2381,35 @@ const Endpoints = {
     getTemplate: ["GET /gitignore/templates/{name}"]
   },
   interactions: {
-    getRestrictionsForAuthenticatedUser: ["GET /user/interaction-limits"],
-    getRestrictionsForOrg: ["GET /orgs/{org}/interaction-limits"],
-    getRestrictionsForRepo: ["GET /repos/{owner}/{repo}/interaction-limits"],
-    getRestrictionsForYourPublicRepos: ["GET /user/interaction-limits", {}, {
-      renamed: ["interactions", "getRestrictionsForAuthenticatedUser"]
+    getRestrictionsForOrg: ["GET /orgs/{org}/interaction-limits", {
+      mediaType: {
+        previews: ["sombra"]
+      }
     }],
-    removeRestrictionsForAuthenticatedUser: ["DELETE /user/interaction-limits"],
-    removeRestrictionsForOrg: ["DELETE /orgs/{org}/interaction-limits"],
-    removeRestrictionsForRepo: ["DELETE /repos/{owner}/{repo}/interaction-limits"],
-    removeRestrictionsForYourPublicRepos: ["DELETE /user/interaction-limits", {}, {
-      renamed: ["interactions", "removeRestrictionsForAuthenticatedUser"]
+    getRestrictionsForRepo: ["GET /repos/{owner}/{repo}/interaction-limits", {
+      mediaType: {
+        previews: ["sombra"]
+      }
     }],
-    setRestrictionsForAuthenticatedUser: ["PUT /user/interaction-limits"],
-    setRestrictionsForOrg: ["PUT /orgs/{org}/interaction-limits"],
-    setRestrictionsForRepo: ["PUT /repos/{owner}/{repo}/interaction-limits"],
-    setRestrictionsForYourPublicRepos: ["PUT /user/interaction-limits", {}, {
-      renamed: ["interactions", "setRestrictionsForAuthenticatedUser"]
+    removeRestrictionsForOrg: ["DELETE /orgs/{org}/interaction-limits", {
+      mediaType: {
+        previews: ["sombra"]
+      }
+    }],
+    removeRestrictionsForRepo: ["DELETE /repos/{owner}/{repo}/interaction-limits", {
+      mediaType: {
+        previews: ["sombra"]
+      }
+    }],
+    setRestrictionsForOrg: ["PUT /orgs/{org}/interaction-limits", {
+      mediaType: {
+        previews: ["sombra"]
+      }
+    }],
+    setRestrictionsForRepo: ["PUT /repos/{owner}/{repo}/interaction-limits", {
+      mediaType: {
+        previews: ["sombra"]
+      }
     }]
   },
   issues: {
@@ -2449,10 +2471,7 @@ const Endpoints = {
     }]
   },
   meta: {
-    get: ["GET /meta"],
-    getOctocat: ["GET /octocat"],
-    getZen: ["GET /zen"],
-    root: ["GET /"]
+    get: ["GET /meta"]
   },
   migrations: {
     cancelImport: ["DELETE /repos/{owner}/{repo}/import"],
@@ -2528,7 +2547,6 @@ const Endpoints = {
   },
   orgs: {
     blockUser: ["PUT /orgs/{org}/blocks/{username}"],
-    cancelInvitation: ["DELETE /orgs/{org}/invitations/{invitation_id}"],
     checkBlockedUser: ["GET /orgs/{org}/blocks/{username}"],
     checkMembershipForUser: ["GET /orgs/{org}/members/{username}"],
     checkPublicMembershipForUser: ["GET /orgs/{org}/public_members/{username}"],
@@ -2540,11 +2558,9 @@ const Endpoints = {
     getMembershipForAuthenticatedUser: ["GET /user/memberships/orgs/{org}"],
     getMembershipForUser: ["GET /orgs/{org}/memberships/{username}"],
     getWebhook: ["GET /orgs/{org}/hooks/{hook_id}"],
-    getWebhookConfigForOrg: ["GET /orgs/{org}/hooks/{hook_id}/config"],
     list: ["GET /organizations"],
     listAppInstallations: ["GET /orgs/{org}/installations"],
     listBlockedUsers: ["GET /orgs/{org}/blocks"],
-    listFailedInvitations: ["GET /orgs/{org}/failed_invitations"],
     listForAuthenticatedUser: ["GET /user/orgs"],
     listForUser: ["GET /users/{username}/orgs"],
     listInvitationTeams: ["GET /orgs/{org}/invitations/{invitation_id}/teams"],
@@ -2564,27 +2580,7 @@ const Endpoints = {
     unblockUser: ["DELETE /orgs/{org}/blocks/{username}"],
     update: ["PATCH /orgs/{org}"],
     updateMembershipForAuthenticatedUser: ["PATCH /user/memberships/orgs/{org}"],
-    updateWebhook: ["PATCH /orgs/{org}/hooks/{hook_id}"],
-    updateWebhookConfigForOrg: ["PATCH /orgs/{org}/hooks/{hook_id}/config"]
-  },
-  packages: {
-    deletePackageForAuthenticatedUser: ["DELETE /user/packages/{package_type}/{package_name}"],
-    deletePackageForOrg: ["DELETE /orgs/{org}/packages/{package_type}/{package_name}"],
-    deletePackageVersionForAuthenticatedUser: ["DELETE /user/packages/{package_type}/{package_name}/versions/{package_version_id}"],
-    deletePackageVersionForOrg: ["DELETE /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}"],
-    getAllPackageVersionsForAPackageOwnedByAnOrg: ["GET /orgs/{org}/packages/{package_type}/{package_name}/versions"],
-    getAllPackageVersionsForAPackageOwnedByTheAuthenticatedUser: ["GET /user/packages/{package_type}/{package_name}/versions"],
-    getAllPackageVersionsForPackageOwnedByUser: ["GET /users/{username}/packages/{package_type}/{package_name}/versions"],
-    getPackageForAuthenticatedUser: ["GET /user/packages/{package_type}/{package_name}"],
-    getPackageForOrganization: ["GET /orgs/{org}/packages/{package_type}/{package_name}"],
-    getPackageForUser: ["GET /users/{username}/packages/{package_type}/{package_name}"],
-    getPackageVersionForAuthenticatedUser: ["GET /user/packages/{package_type}/{package_name}/versions/{package_version_id}"],
-    getPackageVersionForOrganization: ["GET /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}"],
-    getPackageVersionForUser: ["GET /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}"],
-    restorePackageForAuthenticatedUser: ["POST /user/packages/{package_type}/{package_name}/restore"],
-    restorePackageForOrg: ["POST /orgs/{org}/packages/{package_type}/{package_name}/restore"],
-    restorePackageVersionForAuthenticatedUser: ["POST /user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore"],
-    restorePackageVersionForOrg: ["POST /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore"]
+    updateWebhook: ["PATCH /orgs/{org}/hooks/{hook_id}"]
   },
   projects: {
     addCollaborator: ["PUT /projects/{project_id}/collaborators/{username}", {
@@ -2815,7 +2811,7 @@ const Endpoints = {
         previews: ["squirrel-girl"]
       }
     }, {
-      deprecated: "octokit.reactions.deleteLegacy() is deprecated, see https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy"
+      deprecated: "octokit.reactions.deleteLegacy() is deprecated, see https://developer.github.com/v3/reactions/#delete-a-reaction-legacy"
     }],
     listForCommitComment: ["GET /repos/{owner}/{repo}/comments/{comment_id}/reactions", {
       mediaType: {
@@ -2931,11 +2927,7 @@ const Endpoints = {
         previews: ["dorian"]
       }
     }],
-    downloadArchive: ["GET /repos/{owner}/{repo}/zipball/{ref}", {}, {
-      renamed: ["repos", "downloadZipballArchive"]
-    }],
-    downloadTarballArchive: ["GET /repos/{owner}/{repo}/tarball/{ref}"],
-    downloadZipballArchive: ["GET /repos/{owner}/{repo}/zipball/{ref}"],
+    downloadArchive: ["GET /repos/{owner}/{repo}/{archive_format}/{ref}"],
     enableAutomatedSecurityFixes: ["PUT /repos/{owner}/{repo}/automated-security-fixes", {
       mediaType: {
         previews: ["london"]
@@ -2970,7 +2962,11 @@ const Endpoints = {
         previews: ["zzzax"]
       }
     }],
-    getCommunityProfileMetrics: ["GET /repos/{owner}/{repo}/community/profile"],
+    getCommunityProfileMetrics: ["GET /repos/{owner}/{repo}/community/profile", {
+      mediaType: {
+        previews: ["black-panther"]
+      }
+    }],
     getContent: ["GET /repos/{owner}/{repo}/contents/{path}"],
     getContributorsStats: ["GET /repos/{owner}/{repo}/stats/contributors"],
     getDeployKey: ["GET /repos/{owner}/{repo}/keys/{key_id}"],
@@ -2994,7 +2990,6 @@ const Endpoints = {
     getUsersWithAccessToProtectedBranch: ["GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users"],
     getViews: ["GET /repos/{owner}/{repo}/traffic/views"],
     getWebhook: ["GET /repos/{owner}/{repo}/hooks/{hook_id}"],
-    getWebhookConfigForRepo: ["GET /repos/{owner}/{repo}/hooks/{hook_id}/config"],
     listBranches: ["GET /repos/{owner}/{repo}/branches"],
     listBranchesForHeadCommit: ["GET /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head", {
       mediaType: {
@@ -3045,7 +3040,6 @@ const Endpoints = {
     removeUserAccessRestrictions: ["DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users", {}, {
       mapToData: "users"
     }],
-    renameBranch: ["POST /repos/{owner}/{repo}/branches/{branch}/rename"],
     replaceAllTopics: ["PUT /repos/{owner}/{repo}/topics", {
       mediaType: {
         previews: ["mercy"]
@@ -3075,12 +3069,8 @@ const Endpoints = {
     updatePullRequestReviewProtection: ["PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews"],
     updateRelease: ["PATCH /repos/{owner}/{repo}/releases/{release_id}"],
     updateReleaseAsset: ["PATCH /repos/{owner}/{repo}/releases/assets/{asset_id}"],
-    updateStatusCheckPotection: ["PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks", {}, {
-      renamed: ["repos", "updateStatusCheckProtection"]
-    }],
-    updateStatusCheckProtection: ["PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks"],
+    updateStatusCheckPotection: ["PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks"],
     updateWebhook: ["PATCH /repos/{owner}/{repo}/hooks/{hook_id}"],
-    updateWebhookConfigForRepo: ["PATCH /repos/{owner}/{repo}/hooks/{hook_id}/config"],
     uploadReleaseAsset: ["POST /repos/{owner}/{repo}/releases/{release_id}/assets{?name,label}", {
       baseUrl: "https://uploads.github.com"
     }]
@@ -3101,11 +3091,6 @@ const Endpoints = {
       }
     }],
     users: ["GET /search/users"]
-  },
-  secretScanning: {
-    getAlert: ["GET /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}"],
-    listAlertsForRepo: ["GET /repos/{owner}/{repo}/secret-scanning/alerts"],
-    updateAlert: ["PATCH /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}"]
   },
   teams: {
     addOrUpdateMembershipForUserInOrg: ["PUT /orgs/{org}/teams/{team_slug}/memberships/{username}"],
@@ -3187,7 +3172,7 @@ const Endpoints = {
   }
 };
 
-const VERSION = "4.12.1";
+const VERSION = "4.2.1";
 
 function endpointsToMethods(octokit, endpointsMap) {
   const newMethods = {};
@@ -3269,6 +3254,17 @@ function decorate(octokit, scope, methodName, defaults, decorations) {
 
   return Object.assign(withDecorations, requestWithDefaults);
 }
+
+/**
+ * This plugin is a 1:1 copy of internal @octokit/rest plugins. The primary
+ * goal is to rebuild @octokit/rest on top of @octokit/core. Once that is
+ * done, we will remove the registerEndpoints methods and return the methods
+ * directly as with the other plugins. At that point we will also remove the
+ * legacy workarounds and deprecations.
+ *
+ * See the plan at
+ * https://github.com/octokit/plugin-rest-endpoint-methods.js/pull/1
+ */
 
 function restEndpointMethods(octokit) {
   return endpointsToMethods(octokit, Endpoints);
@@ -3360,7 +3356,7 @@ var isPlainObject = __nccwpck_require__(987);
 var nodeFetch = _interopDefault(__nccwpck_require__(2460));
 var requestError = __nccwpck_require__(1042);
 
-const VERSION = "5.4.14";
+const VERSION = "5.4.10";
 
 function getBufferResponse(response) {
   return response.arrayBuffer();
@@ -5629,51 +5625,51 @@ module.exports.Collection = Hook.Collection
 /***/ 1339:
 /***/ ((module) => {
 
-module.exports = addHook;
+module.exports = addHook
 
-function addHook(state, kind, name, hook) {
-  var orig = hook;
+function addHook (state, kind, name, hook) {
+  var orig = hook
   if (!state.registry[name]) {
-    state.registry[name] = [];
+    state.registry[name] = []
   }
 
-  if (kind === "before") {
+  if (kind === 'before') {
     hook = function (method, options) {
       return Promise.resolve()
         .then(orig.bind(null, options))
-        .then(method.bind(null, options));
-    };
+        .then(method.bind(null, options))
+    }
   }
 
-  if (kind === "after") {
+  if (kind === 'after') {
     hook = function (method, options) {
-      var result;
+      var result
       return Promise.resolve()
         .then(method.bind(null, options))
         .then(function (result_) {
-          result = result_;
-          return orig(result, options);
+          result = result_
+          return orig(result, options)
         })
         .then(function () {
-          return result;
-        });
-    };
+          return result
+        })
+    }
   }
 
-  if (kind === "error") {
+  if (kind === 'error') {
     hook = function (method, options) {
       return Promise.resolve()
         .then(method.bind(null, options))
         .catch(function (error) {
-          return orig(error, options);
-        });
-    };
+          return orig(error, options)
+        })
+    }
   }
 
   state.registry[name].push({
     hook: hook,
-    orig: orig,
-  });
+    orig: orig
+  })
 }
 
 
@@ -5682,32 +5678,33 @@ function addHook(state, kind, name, hook) {
 /***/ 435:
 /***/ ((module) => {
 
-module.exports = register;
+module.exports = register
 
-function register(state, name, method, options) {
-  if (typeof method !== "function") {
-    throw new Error("method for before hook must be a function");
+function register (state, name, method, options) {
+  if (typeof method !== 'function') {
+    throw new Error('method for before hook must be a function')
   }
 
   if (!options) {
-    options = {};
+    options = {}
   }
 
   if (Array.isArray(name)) {
     return name.reverse().reduce(function (callback, name) {
-      return register.bind(null, state, name, callback, options);
-    }, method)();
+      return register.bind(null, state, name, callback, options)
+    }, method)()
   }
 
-  return Promise.resolve().then(function () {
-    if (!state.registry[name]) {
-      return method(options);
-    }
+  return Promise.resolve()
+    .then(function () {
+      if (!state.registry[name]) {
+        return method(options)
+      }
 
-    return state.registry[name].reduce(function (method, registered) {
-      return registered.hook.bind(null, method, options);
-    }, method)();
-  });
+      return (state.registry[name]).reduce(function (method, registered) {
+        return registered.hook.bind(null, method, options)
+      }, method)()
+    })
 }
 
 
@@ -5716,24 +5713,22 @@ function register(state, name, method, options) {
 /***/ 3468:
 /***/ ((module) => {
 
-module.exports = removeHook;
+module.exports = removeHook
 
-function removeHook(state, name, method) {
+function removeHook (state, name, method) {
   if (!state.registry[name]) {
-    return;
+    return
   }
 
   var index = state.registry[name]
-    .map(function (registered) {
-      return registered.orig;
-    })
-    .indexOf(method);
+    .map(function (registered) { return registered.orig })
+    .indexOf(method)
 
   if (index === -1) {
-    return;
+    return
   }
 
-  state.registry[name].splice(index, 1);
+  state.registry[name].splice(index, 1)
 }
 
 
@@ -8398,7 +8393,7 @@ function wrappy (fn, cb) {
 /***/ }),
 
 /***/ 168:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // required packages
 const {request} = __nccwpck_require__(2364); // to handle the http requests to GitHub API
@@ -8406,7 +8401,7 @@ const core = __nccwpck_require__(6024); // to get input from workflow/set output
 const github = __nccwpck_require__(5016); // to get the release object from the payload on trigger
 const axios = __nccwpck_require__(992);
 
-/*
+/* 
 getSha gets the sha attribute for a release using GitHub API
 owner: the owner of the GitHub repository
 repo: the name of the GitHub repository
@@ -8416,20 +8411,18 @@ returns sha attribute or sets failure if unsuccessful
 */
 const getSHA = async (owner, repo, tagName, token) => {
     try {
-        const response = await request(
-            'GET /repos/{owner}/{repo}/git/refs/tags/{tagName}',
-            {
-                headers: {
-                    authorization: `token ${token}`,
-                },
-                owner: owner,
-                repo: repo,
-                tagName: tagName,
+        const response = await request('GET /repos/{owner}/{repo}/git/refs/tags/{tagName}', {
+            headers: {
+                authorization: `token ${token}`,
             },
-        );
+            owner: owner,
+            repo: repo,
+            tagName: tagName,
+        });
         return response.data.object.sha;
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
@@ -8442,21 +8435,18 @@ pageNumber: the page number used to traverse through the commits(API caps at 30 
 token: the owners personal access token used for authentication of the API request
 returns the list of commits in release or sets failure if unsuccessful
 */
-const getCommitsList = async (owner, repo, releaseSha, pagenumber, token, sinceDate,) => {
+const getCommitsList = async (owner, repo, releaseSha, pagenumber, token, sinceDate) => {
     try {
         if (sinceDate === 0) {
-            const response = await request(
-                'GET /repos/{owner}/{repo}/commits?sha={releaseSha}&page={pagenumber}',
-                {
-                    headers: {
-                        authorization: `token ${token}`,
-                    },
-                    owner: owner,
-                    repo: repo,
-                    releaseSha: releaseSha,
-                    pagenumber: pagenumber,
+            const response = await request('GET /repos/{owner}/{repo}/commits?sha={releaseSha}&page={pagenumber}', {
+                headers: {
+                    authorization: `token ${token}`,
                 },
-            );
+                owner: owner,
+                repo: repo,
+                releaseSha: releaseSha,
+                pagenumber: pagenumber,
+            });
             return response.data;
         } else {
             const response = await request(
@@ -8476,6 +8466,7 @@ const getCommitsList = async (owner, repo, releaseSha, pagenumber, token, sinceD
         }
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
@@ -8498,6 +8489,7 @@ const getNumReleases = async (owner, repo, token) => {
         return response.data.length;
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
@@ -8518,7 +8510,7 @@ const getReleaseData = async (owner, repo, releaseSha, token, n) => {
         let data = {
             numCommits: 0,
             firstDate: '',
-        };
+        }
         const response = await request('GET /repos/{owner}/{repo}/releases', {
             headers: {
                 authorization: `token ${token}`,
@@ -8534,11 +8526,13 @@ const getReleaseData = async (owner, repo, releaseSha, token, n) => {
         return data;
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
 const getRelease = async (owner, repo, token, n) => {
     try {
+
         const response = await request('GET /repos/{owner}/{repo}/releases', {
             headers: {
                 authorization: `token ${token}`,
@@ -8547,15 +8541,17 @@ const getRelease = async (owner, repo, token, n) => {
             repo: repo,
         });
 
-        let res = response.data[n];
+        let res = response.data[n]
         return {
             id: res.id,
             createdAt: new Date(res.created_at),
             tagName: res.tag_name,
             body: res.body
+
         }; //get release at index n of list;
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
@@ -8571,6 +8567,7 @@ returns data object, which contains the number of commits
  since release and the data of the release at n or sets failure if unsuccessful
 */
 const getCommitData = async (owner, repo, releaseSha, token, sinceDate) => {
+
     try {
         let pagenumber = 1;
         let foundLast = false;
@@ -8580,23 +8577,24 @@ const getCommitData = async (owner, repo, releaseSha, token, sinceDate) => {
         let data = {
             numCommits: 0,
             firstDate: '',
-        };
+        }
 
         while (foundLast === false) {
             commitList = await getCommitsList(owner, repo, releaseSha, pagenumber, token, sinceDate);
             // check if list has elements
             if (!(commitList === undefined || commitList.length === 0)) {
                 lastItem = commitList[commitList.length - 1];
-                data.numCommits += commitList.length;
+                data.numCommits += commitList.length
                 pagenumber += 1;
             } else {
                 foundLast = true;
             }
         }
-        data.firstDate = lastItem.commit.author.date;
+        data.firstDate = lastItem.commit.author.date
         return data;
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
@@ -8628,6 +8626,7 @@ const getNumCommits = async (owner, repo, releaseSha, token, sinceDate) => {
         return numCommits;
     } catch (error) {
         core.setFailed(error.message);
+
     }
 };
 
@@ -8639,11 +8638,11 @@ firstTime: The date/time of the first commit since previous release
 numCommits: the number of commits made between firstTime and createdAt
 returns the lead time for change or sets failure if unsuccessful
 */
-const getLeadTime = (createdAt, firstTime, numCommits) => {
-    if (numCommits === 0) {
-        throw {code: 1, message: 'No commits since last release'};
-    } else if (numCommits < 0) {
-        throw {code: 1, message: 'Number of commits is negative'};
+const getLeadTime =  (createdAt, firstTime, numCommits) => {
+    if (numCommits === 0){
+        throw {'code': 1, 'message': 'No commits since last release'}
+    } else if (numCommits < 0){
+        throw {'code': 1, 'message': 'Number of commits is negative'}
     }
     try {
         let firstTimeObj = new Date(firstTime);
@@ -8682,6 +8681,7 @@ const updateReleaseBody = async (owner, repo, releaseID, token, body) => {
     }
 };
 
+
 /*
 sendDataToWebsite updates a given releases body description with the calculated lead time using the GitHub API
 repo: the name of the GitHub repository
@@ -8693,13 +8693,13 @@ returns true if successful, false otherwise
 */
 const sendDataToWebsite = async (ownerName, repo, webToken, tagName, createdAt, leadTimeForChange,) => {
     try {
-        await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api/repo/access', {
-                ownerName: ownerName,
-                token: webToken,
-                repoName: repo,
-                tag: tagName,
-                created_at: createdAt,
-                lead_time: leadTimeForChange
+        await axios.post('https://europe-west3-se06-website.cloudfunctions.net/api-endpoints/graph/add-data', {
+            ownerName: ownerName,
+            token: webToken,
+            repoName: repo,
+            tag: tagName,
+            created_at: createdAt,
+            lead_time: leadTimeForChange
         });
         return true;
     } catch (error) {
@@ -8714,20 +8714,22 @@ then calls each function to get the lead time for change
 sets the output as either the lead time for change on success
 or sets failure if otherwise
 */
-const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webToken, numReleases,) => {
+const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webToken, numReleases) => {
     try {
         let releaseSha = await getSHA(ownerName, repo, tagName, token);
 
-        let data;
-        if (i + 1 >= numReleases) {
+        let data
+        if ((i+1) >= numReleases){
             data = await getCommitData(ownerName, repo, releaseSha, token, 0);
         } else {
             data = await getReleaseData(ownerName, repo, releaseSha, token, i + 1);
         }
 
-        let leadTimeForChange = await getLeadTime(createdAt, data.firstDate, data.numCommits,);
+        let leadTimeForChange = await getLeadTime(createdAt, data.firstDate, data.numCommits);
 
-        let newBodyDescription = `${body} \n Lead Time For Change In Days ${leadTimeForChange}`;
+        let badge = `[![Lead Time For Change](https://img.shields.io/static/v1?label=lead%20time%20for%20change&message=${leadTimeForChange}&color=green)](https://shields.io/)`
+
+        let newBodyDescription = `${badge} \n ${body}`;
         let successfulUpdate = await updateReleaseBody(ownerName, repo, id, token, newBodyDescription);
 
         if (successfulUpdate) {
@@ -8737,21 +8739,22 @@ const run = async (i, ownerName, repo, id, tagName, createdAt, body, token, webT
         }
 
         if (webToken) {
-            const successfulSendData = await sendDataToWebsite(ownerName, repo, webToken, tagName, createdAt, leadTimeForChange);
+            const successfulSendData = await sendDataToWebsite(ownerName, repo, webToken, tagName, createdAt, leadTimeForChange)
             if (successfulSendData === true) {
-                console.log('results posted to website successfully');
+                console.log("results posted to website successfully")
             } else {
-                console.log('results posted to website unsuccessfully');
+                console.log("results posted to website unsuccessfully")
             }
         } else {
-            core.info('web token not supplied: skipping step');
+            core.info('web token not supplied: skipping step')
         }
 
         console.log(`${tagName} Lead Time For Change in Days: ${leadTimeForChange}`);
 
-        if (i === 0) {
+        if (i === 0){
             core.setOutput('lead-time-for-change', leadTimeForChange);
         }
+
 
     } catch (error) {
         core.setFailed(error.message);
@@ -8766,13 +8769,11 @@ const main = async () => {
         const repo = repository.name;
 
         const token = core.getInput('auth-token'); // required by user to authenticate into GitHub API
-        const calculatePreviousReleases = core.getInput(
-            'calculate-previous-releases',
-        );
+        const calculatePreviousReleases = core.getInput('calculate-previous-releases');
         const webToken = core.getInput('web-token');
 
         let n;
-        if (calculatePreviousReleases === 'true') {
+        if (calculatePreviousReleases === "true") {
             n = Math.abs(parseInt(core.getInput('number-of-releases'), 10)); //get number of releases as integer
         } else {
             n = 1;
@@ -8787,15 +8788,28 @@ const main = async () => {
         }
 
         for (let i = 0; i < n; i++) {
-            let {id, tagName, createdAt, body} = await getRelease(ownerName, repo, token, i,);
-            await run(i, ownerName, repo, id, tagName, createdAt, body, token, webToken, numReleases,);
+            let {id, tagName, createdAt, body} = await getRelease(ownerName, repo, token, i);
+            await run(i, ownerName, repo, id, tagName, createdAt, body, token, webToken, numReleases);
         }
     } catch (e) {
-        core.setFailed(e.message);
+        core.setFailed(e.message)
     }
-};
+}
 
-main();
+main()
+
+module.exports = {
+    getSHA,
+    getCommitsList,
+    getNumReleases,
+    getReleaseData,
+    getCommitData,
+    getNumCommits,
+    getLeadTime,
+    updateReleaseBody,
+    sendDataToWebsite,
+    getRelease
+}
 
 
 /***/ }),
